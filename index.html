@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOBAL TREND - Worldwide Premium Trends & Luxury Products</title>
+    <meta name="description" content="Discover worldwide premium trends & luxury products. Global Trend brings you curated international products with trusted reviews and secure global checkout.">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="GLOBAL TREND">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="GLOBAL TREND">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#4f46e5">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="theme-color" content="#4f46e5">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .product-card { 
+            transition: all 0.3s ease; 
+        }
+        .product-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); 
+        }
+        .category-tab.active { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            border-color: transparent; 
+        }
+        .trending-badge { 
+            background: linear-gradient(45deg, #FF0080, #FF8C00); 
+            animation: pulse 2s infinite; 
+        }
+        .premium-badge { 
+            background: linear-gradient(45deg, #D4AF37, #FFD700); 
+        }
+        @keyframes pulse { 
+            0% { transform: scale(1); } 
+            50% { transform: scale(1.05); } 
+            100% { transform: scale(1); } 
+        }
+        .product-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 1.5rem; 
+        }
+        
+        /* Install Button Styles */
+        #installButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        #installButton.show {
+            display: flex;
+            animation: slideInUp 0.5s ease;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Install Button -->
+    <button id="installButton" aria-label="Install GLOBAL TREND App">
+        <i class="fas fa-download"></i>
+        Install App
+    </button>
+
+    <!-- Trust Badges -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-700 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center items-center gap-6 text-sm text-white">
+                <div class="flex items-center"><i class="fas fa-shield-alt text-yellow-300 mr-2"></i>Trusted Global Reviews</div>
+                <div class="flex items-center"><i class="fas fa-lock text-yellow-300 mr-2"></i>Secure Worldwide Checkout</div>
+                <div class="flex items-center"><i class="fas fa-shipping-fast text-yellow-300 mr-2"></i>International Shipping</div>
+                <div class="flex items-center"><i class="fas fa-crown text-yellow-300 mr-2"></i>Premium Products Only</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-700 bg-clip-text text-transparent">
+                        <i class="fas fa-globe-americas mr-2"></i>GLOBAL TREND
+                    </h1>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors"><i class="fas fa-home mr-1"></i>Home</a>
+                    <a href="#products" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors"><i class="fas fa-shopping-bag mr-1"></i>Products</a>
+                    <a href="#trending" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors"><i class="fas fa-fire mr-1"></i>Trending</a>
+                    <a href="#blog" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors"><i class="fas fa-star mr-1"></i>Reviews</a>
+                    <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition-colors"><i class="fas fa-info-circle mr-1"></i>About</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition-colors"><i class="fas fa-globe"></i></button>
+                    <button class="p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition-colors"><i class="fas fa-chart-line"></i></button>
+                    <button class="relative p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition-colors"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Hero Section -->
+        <section id="home" class="relative w-full overflow-hidden rounded-2xl shadow-2xl mb-12 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800">
+            <div class="absolute inset-0 bg-black opacity-20"></div>
+            <div class="container mx-auto px-4 py-24 text-center text-white relative z-10">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight">GLOBAL TREND</h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-95 font-light">Discover Worldwide Premium Trends & Luxury Products</p>
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <span class="bg-white bg-opacity-20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">Global Tech Innovations</span>
+                    <span class="bg-white bg-opacity-20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">Luxury Lifestyle</span>
+                    <span class="bg-white bg-opacity-20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">Premium Brands</span>
+                    <span class="bg-white bg-opacity-20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium">Worldwide Trends</span>
+                </div>
+                <button class="bg-white text-blue-600 px-10 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl text-lg">
+                    <i class="fas fa-compass mr-2"></i>Explore Global Trends
+                </button>
+            </div>
+        </section>
+
+        <!-- Trending Now Section -->
+        <section id="trending" class="bg-gradient-to-r from-yellow-400 to-orange-500 py-6 mb-12 rounded-2xl shadow-lg">
+            <div class="container mx-auto px-4 text-center">
+                <h3 class="text-xl font-bold text-white mb-3 flex items-center justify-center">
+                    <i class="fas fa-globe-americas mr-3 text-2xl"></i>TRENDING NOW WORLDWIDE
+                </h3>
+                <div class="flex flex-wrap justify-center gap-4 text-white font-medium">
+                    <span>#SmartHomeTech</span><span>#WirelessInnovation</span><span>#GlobalLuxury</span>
+                    <span>#PremiumTech</span><span>#Innovation2024</span><span>#GlobalProducts</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Filter -->
+        <section id="products" class="mb-12">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-bold text-gray-900 mb-3">Global Categories</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Discover premium products from around the world in our carefully curated categories</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="category-tab active px-6 py-3 text-sm font-semibold rounded-full border-2 border-gray-200">🌍 All Global Trends</button>
+                <button class="category-tab px-6 py-3 text-sm font-semibold rounded-full border-2 border-gray-200">💻 Premium Tech</button>
+                <button class="category-tab px-6 py-3 text-sm font-semibold rounded-full border-2 border-gray-200">🎧 Elite Audio</button>
+            </div>
+        </section>
+
+        <!-- Product Grid -->
+        <section class="mb-20">
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-2xl shadow-lg overflow-hidden relative border border-gray-100">
+                    <div class="absolute top-3 left-3 flex flex-col gap-2">
+                        <div class="trending-badge text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg"><i class="fas fa-fire mr-1"></i>TRENDING</div>
+                        <div class="premium-badge text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg"><i class="fas fa-crown mr-1"></i>PREMIUM</div>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                        <div class="bg-red-500 text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg">SAVE $49.01</div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=500&h=500&fit=crop" alt="Apple AirPods Pro" class="w-full h-64 object-cover" loading="lazy">
+                        <div class="absolute bottom-3 left-3 bg-black bg-opacity-70 text-white text-xs px-3 py-1.5 rounded-full"><i class="fas fa-tag mr-1"></i>Apple</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-gray-800 mb-2 text-lg">Apple AirPods Pro (2nd Generation)</h3>
+                        <p class="text-sm text-gray-600 mb-3">The latest AirPods Pro deliver advanced noise cancellation and immersive sound experience.</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                            </div>
+                            <span class="text-sm text-gray-500">45,289 reviews</span>
+                        </div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl font-bold text-indigo-600">$199.99</span>
+                            <span class="text-lg text-gray-500 line-through">$249.00</span>
+                            <span class="text-sm bg-green-100 text-green-600 px-2 py-1 rounded-full font-medium">20% OFF</span>
+                        </div>
+                        <button class="w-full bg-gradient-to-r from-indigo-600 to-purple-700 text-white px-4 py-3 rounded-xl font-semibold hover:shadow-lg transition-all">
+                            <i class="fab fa-amazon mr-2"></i>View on Amazon
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-2xl shadow-lg overflow-hidden relative border border-gray-100">
+                    <div class="absolute top-3 left-3 flex flex-col gap-2">
+                        <div class="trending-badge text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg"><i class="fas fa-fire mr-1"></i>TRENDING</div>
+                        <div class="premium-badge text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg"><i class="fas fa-crown mr-1"></i>PREMIUM</div>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                        <div class="bg-red-500 text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg">SAVE $51.99</div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop" alt="Sony Headphones" class="w-full h-64 object-cover" loading="lazy">
+                        <div class="absolute bottom-3 left-3 bg-black bg-opacity-70 text-white text-xs px-3 py-1.5 rounded-full"><i class="fas fa-tag mr-1"></i>Sony</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-gray-800 mb-2 text-lg">Sony WH-1000XM4 Wireless Headphones</h3>
+                        <p class="text-sm text-gray-600 mb-3">Experience the best noise cancellation with advanced audio technology.</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                            </div>
+                            <span class="text-sm text-gray-500">89,432 reviews</span>
+                        </div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-2xl font-bold text-indigo-600">$348.00</span>
+                            <span class="text-lg text-gray-500 line-through">$399.99</span>
+                            <span class="text-sm bg-green-100 text-green-600 px-2 py-1 rounded-full font-medium">13% OFF</span>
+                        </div>
+                        <button class="w-full bg-gradient-to-r from-indigo-600 to-purple-700 text-white px-4 py-3 rounded-xl font-semibold hover:shadow-lg transition-all">
+                            <i class="fab fa-amazon mr-2"></i>View on Amazon
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="bg-gray-50 py-16 rounded-2xl mb-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2 text-center">Global Trend Insights</h2>
+                <p class="text-gray-600 text-center mb-8">Expert analysis of worldwide market trends</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop" alt="Tech Trends" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Tech Trends 2024</h3>
+                            <p class="text-gray-600 mb-4">Discover the latest technology trends worldwide.</p>
+                            <a href="#" class="text-indigo-600 font-semibold">Read More →</a>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop" alt="Shopping" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Global Shopping</h3>
+                            <p class="text-gray-600 mb-4">How trends influence shopping habits.</p>
+                            <a href="#" class="text-indigo-600 font-semibold">Read More →</a>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=400&h=250&fit=crop" alt="Products" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Viral Products</h3>
+                            <p class="text-gray-600 mb-4">International products going viral.</p>
+                            <a href="#" class="text-indigo-600 font-semibold">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h3 class="text-xl font-bold">GLOBAL TREND</h3>
+                <p class="text-gray-400 text-sm mt-2">Worldwide Trends & Premium Products</p>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm">
+                &copy; 2024 GLOBAL TREND. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // PWA Installation
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installButton.classList.add('show');
+            
+            // Hide after 15 seconds
+            setTimeout(() => {
+                installButton.classList.remove('show');
+            }, 15000);
+        });
+
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installButton.classList.remove('show');
+                    console.log('App installed successfully');
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        // Amazon buttons functionality
+        document.querySelectorAll('button').forEach(button => {
+            if (button.textContent.includes('Amazon')) {
+                button.addEventListener('click', function() {
+                    const productName = this.closest('.product-card').querySelector('h3').textContent;
+                    if (productName.includes('AirPods')) {
+                        window.open('https://www.amazon.com/dp/B0CHWRXH8S', '_blank');
+                    } else if (productName.includes('Sony')) {
+                        window.open('https://www.amazon.com/dp/B0863TXGM3', '_blank');
+                    }
+                });
+            }
+        });
+
+        // Category tabs functionality
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
